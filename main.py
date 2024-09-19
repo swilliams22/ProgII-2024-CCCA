@@ -36,8 +36,16 @@ def administrar_grupo(nombre_grupo, grupos_dic):
             print()
             print("Detalle de gastos:\n")
             print(grupos_dic[nombre_grupo])
-            calcular_deudas(grupos_dic[nombre_grupo])
+            resultado = calcular_deudas(grupos_dic[nombre_grupo])
             esperar_enter()
+            if resultado:
+                try:
+                    imprimir = int(input("¿Desea exportar el calculo a un archivo TXT? Si (1) - No (0): "))
+                    if imprimir == 1:
+                        exportar_txt(nombre_grupo, resultado)
+                except ValueError:
+                    print("Valor ingresado incorrecto")
+
         elif eleccion == 4:
             mostrar_pantalla_administrar = False
         else:
@@ -66,8 +74,8 @@ def main():
                     print(f"SE SELECCIONO: {nombre_grupo}")
                     administrar_grupo(nombre_grupo, grupos)
             elif opcion_elegida == 3:
-                print(grupos) # para chequear, sacar despues
-                #mostrar_pantalla_inicio = False
+                #print(grupos) # para chequear, sacar despues
+                mostrar_pantalla_inicio = False
             else:
                 print("\nOpción invalida. Por favor, selecciona 1 o 2.")
                 esperar_enter()
